@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Statement</th>
+      <th>Real answer</th>
+      <th>Fake answer1</th>
+      <th>Fake answer2</th>
+      <th>Fake answer3</th>
+      <th>Fake answer4</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.statement %></td>
+        <td><%= question.real_answer %></td>
+        <td><%= question.fake_answer1 %></td>
+        <td><%= question.fake_answer2 %></td>
+        <td><%= question.fake_answer3 %></td>
+        <td><%= question.fake_answer4 %></td>
+        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to 'Edit', edit_question_path(question) %></td>
+        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_question_path %>

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  statement: MyString
+  real_answer: MyString
+  fake_answer1: MyString
+  fake_answer2: MyString
+  fake_answer3: MyString
+  fake_answer4: MyString
+
+two:
+  statement: MyString
+  real_answer: MyString
+  fake_answer1: MyString
+  fake_answer2: MyString
+  fake_answer3: MyString
+  fake_answer4: MyString

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Quizzes</h1>
+
+
+
+  
+    <% @quizzes.each do |quiz| %>
+      <div style="border: black 1px solid;">
+        <div style="font-weight: bold;"><%= "Questionário: #{quiz.name}" %></div>
+        <hr>
+        <% @questions = get_questions(quiz) %>
+        <% @count = 1 %>
+        <% @questions.each do |q| %>
+          <br><%="#{@count} - #{q.statement} - #{@answers}"%>
+          <% @count+=1%>
+        <% end %>
+        <br>
+        <br><%= link_to 'Nova Pergunta',  new_question_path(quiz) %>
+        <br><%= link_to 'Edit', edit_quiz_path(quiz) %>
+        <br><%= link_to 'Destroy', quiz, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+      </div>
+    <% end %>
+  
+
+
+<br>
+
+<%= link_to 'New Quiz', new_quiz_path %>
