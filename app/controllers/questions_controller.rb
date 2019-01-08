@@ -10,6 +10,8 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    @quiz = params[:quiz_id]
+    @fake_answers = FakeAnswer.where(question_id: params[:id])
   end
 
   # GET /questions/new
@@ -75,7 +77,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:statement, :real_answer, :fake_answer1, :fake_answer2, :fake_answer3, :fake_answer4, :quiz_id)
+      params.require(:question).permit(:statement, :real_answer, :fake_answer, :quiz_id)
     end
 
     def link_quiz_question quiz, question

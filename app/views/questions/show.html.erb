@@ -11,24 +11,17 @@
 </p>
 
 <p>
-  <strong>Fake answer1:</strong>
-  <%= @question.fake_answer1 %>
+  <strong>Fake answer:</strong>
+  <%= @question.fake_answer %>
 </p>
-
-<p>
-  <strong>Fake answer2:</strong>
-  <%= @question.fake_answer2 %>
-</p>
-
-<p>
-  <strong>Fake answer3:</strong>
-  <%= @question.fake_answer3 %>
-</p>
-
-<p>
-  <strong>Fake answer4:</strong>
-  <%= @question.fake_answer4 %>
-</p>
-
-<%= link_to 'Edit', edit_question_path(@question) %> |
+<% if @fake_answers.count > 0 %>
+  <% @fake_answers.each do |fa| %>
+    <p>
+      <strong>Fake answer:</strong>
+      <%= fa.answer %>
+    </p>
+  <% end %>
+<% end %>
+<%= link_to 'New Fake Answer', new_fake_answer_path(@quiz,@question) %> |
+<%= link_to 'Editar enunciado, resposta verdadeira ou primeira resposta falsa', edit_question_path(@question) %> |
 <%= link_to 'Back', quizzes_path %>

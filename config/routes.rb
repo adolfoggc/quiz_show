@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  
+
   #resources :questions
   resources :quizzes
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -10,6 +12,10 @@ Rails.application.routes.draw do
 
   scope '/quizzes/:quiz_id/' do 
   	resources :questions
+  end
+
+  scope '/quizzes/:quiz_id/questions/:question_id/' do
+    resources :fake_answers
   end
 
   root "quizzes#index"

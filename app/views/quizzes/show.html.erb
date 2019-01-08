@@ -4,10 +4,17 @@
   <strong>Name:</strong>
   <%= @quiz.name %>
 </p>
-Perguntas:
+<br>
+<% @questions.each do |q| %>
+	<p style="font-weight: bold;"><%= q.statement %></p>
 
-<%= link_to 'Nova Pergunta',  new_question_path(@quiz) %>
+	<% @answers = get_answers(q) %>
+	<% @answers.shuffle.each do |a| %>
+		<p><%= a %></p>
+	<% end %>
+
+	<br><br>
+<% end %>
 
 
-<%= link_to 'Edit', edit_quiz_path(@quiz) %> |
 <%= link_to 'Back', quizzes_path %>

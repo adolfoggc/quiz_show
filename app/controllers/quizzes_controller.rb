@@ -12,6 +12,8 @@ class QuizzesController < ApplicationController
   # GET /quizzes/1
   # GET /quizzes/1.json
   def show
+    @questions = get_questions
+    @answers
   end
 
   # GET /quizzes/new
@@ -63,7 +65,7 @@ class QuizzesController < ApplicationController
     end
   end
 
-  def get_questions quiz
+  def get_questions_from quiz
     @qq = QuizQuestion.where(quiz: quiz)
     @questions = Array.new
     @qq.each do |q|
@@ -71,12 +73,24 @@ class QuizzesController < ApplicationController
     end
     return @questions
   end
-  helper_method :get_questions
+  helper_method :get_questions_from
 
   def count_answers question 
-    
+    return 2 +  FakeAnswer.where(question_id: question).count
   end
   helper_method :count_answers
+
+  def get_answers question
+    @answers = Array.new
+    @answers << question.real_answer
+    @answers << question.fake_answer
+    another_fake_ones = FakeAnswer.where(question: question)
+    another_fake_ones.each do |afo|
+      @answers << afo.answer
+    end
+    return @answers
+  end
+  helper_method :get_answers
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -87,6 +101,15 @@ class QuizzesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_params
       params.require(:quiz).permit(:name)
+    end
+
+    def get_questions
+      qq = QuizQuestion.where(quiz_id: params[:id])
+      @questions = Array.new
+      qq.each do |q|
+        @questions<<Question.find(q.question_id)
+      end
+      return @questions 
     end
 
     
