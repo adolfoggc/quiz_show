@@ -1,0 +1,2 @@
+class QuizTime < ApplicationRecord
+end

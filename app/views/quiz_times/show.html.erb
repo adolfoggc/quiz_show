@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+<%= form_with(model: quiz_time, local: true) do |form| %>
+
+	<p>
+	  <strong>Name:</strong>
+	  <%= @quiz.name %>
+	</p>
+	<br>
+	<% @questions.each do |q| %>
+		<p style="font-weight: bold;"><%= q.statement %></p>
+
+		<% @answers = get_answers(q) %>
+		<% @answers.shuffle.each do |a| %>
+			<p><%= radio_button("post", "category", a) %><%= a %></p>
+		<% end %>
+
+		<br><br>
+	<% end %>
+	<%= submit_tag("Avançar") %>
+<% end %>
+
+<%= link_to 'Back', quizzes_path %>
+

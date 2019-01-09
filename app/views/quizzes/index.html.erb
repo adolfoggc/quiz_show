@@ -1,10 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Quizzes</h1>
-
-
-
-  
     <% @quizzes.each do |quiz| %>
       <div style="border: black 1px solid;">
         <div style="font-weight: bold;"><%= "Questionário: #{quiz.name}" %> - <%= link_to 'RESPONDER QUESTIONÁRIO', quiz_path(quiz)%>
@@ -14,8 +10,8 @@
         <% @count = 1 %>
         <% @questions.each do |q| %>
           <br>
-          <%="#{@count}º - #{q.statement} - #{count_answers(q)} respostas"%><br>
-          <%= link_to 'Mostrar Pergunta', question_path(quiz,q) %>
+          <%="#{@count}º - #{q.statement} - #{count_answers(q)} respostas"%> <%= link_to 'Mostrar Pergunta', question_path(quiz,q) %><br>
+          
           
           <% @count+=1%>
         <% end %>

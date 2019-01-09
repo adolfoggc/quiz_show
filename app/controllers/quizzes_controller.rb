@@ -14,6 +14,9 @@ class QuizzesController < ApplicationController
   def show
     @questions = get_questions
     @answers
+    @count = -1
+    @total_questions
+    @new_quiz = Quiz.new
   end
 
   # GET /quizzes/new
@@ -28,15 +31,24 @@ class QuizzesController < ApplicationController
   # POST /quizzes
   # POST /quizzes.json
   def create
-    @quiz = Quiz.new(quiz_params)
+    if params[:commit] == 'Avançar'
+      @quiz = Quiz.find(params[:quiz_id])
+      answer = params[:user_answ]
 
-    respond_to do |format|
-      if @quiz.save
-        format.html { redirect_to quizzes_path, notice: 'Quiz was successfully created.' }
-        format.json { render :show, status: :created, location: @quiz }
-      else
-        format.html { render :new }
-        format.json { render json: @quiz.errors, status: :unprocessable_entity }
+      answer = compare_answers @quiz, answer
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: answer }
+      end
+    else 
+      @quiz = Quiz.new(quiz_params)
+      respond_to do |format|
+        if @quiz.save
+          format.html { redirect_to quizzes_path, notice: 'Quiz was successfully created.' }
+          format.json { render :show, status: :created, location: @quiz }
+        else
+          format.html { render :new }
+          format.json { render json: @quiz.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -100,7 +112,11 @@ class QuizzesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def quiz_params
-      params.require(:quiz).permit(:name)
+      if params[:commit] != 'Avançar'  
+        params.require(:quiz).permit(:name)
+      else
+        params.permit(:quiz_id, :user_answ)
+      end
     end
 
     def get_questions
@@ -110,6 +126,34 @@ class QuizzesController < ApplicationController
         @questions<<Question.find(q.question_id)
       end
       return @questions 
+    end
+
+    def coo
+      return 1
+    end
+
+    def compare_answers quiz, answers
+      questions = QuizQuestion.where(quiz: quiz)
+      user_answers = Array.new
+      percentage = 0
+      #i = 1
+      questions.each do |q|
+        #if questions.count > 1 && i < questions.count
+        if answers.include?("&<==>&")
+          position = answers.index("&<==>&")
+          question_answer = answers[0, position]
+          answers = answers[position+6, answers.size-position-6] 
+        else
+          question_answer = answers
+        end
+        if Question.find(q.question_id).real_answer.eql? question_answer
+          percentage +=1
+        end
+      end
+      #percentage = percentage/questions.count
+      
+
+      return percentage.to_f/questions.count.to_f
     end
 
     

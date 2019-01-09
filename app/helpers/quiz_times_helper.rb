@@ -1,0 +1,2 @@
+module QuizTimesHelper
+end

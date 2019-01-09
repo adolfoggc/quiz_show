@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_041119) do
+ActiveRecord::Schema.define(version: 2019_01_08_132816) do
 
   create_table "fake_answers", force: :cascade do |t|
     t.string "answer"
@@ -35,6 +35,13 @@ ActiveRecord::Schema.define(version: 2019_01_08_041119) do
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_quiz_questions_on_question_id"
     t.index ["quiz_id"], name: "index_quiz_questions_on_quiz_id"
+  end
+
+  create_table "quiz_times", force: :cascade do |t|
+    t.decimal "questions"
+    t.decimal "correct_answers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "quizzes", force: :cascade do |t|
