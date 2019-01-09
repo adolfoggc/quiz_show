@@ -36,8 +36,15 @@ class QuizzesController < ApplicationController
       answer = params[:user_answ]
 
       answer = compare_answers @quiz, answer
+      
+
+
       respond_to do |format|
-        format.html { redirect_to root_path, notice: answer }
+        if answer >= 0.7
+          format.html { redirect_to root_path, notice: "Muito bem!" }
+        else
+          format.html { redirect_to root_path, notice: "Você é muito feio!" }
+        end
       end
     else 
       @quiz = Quiz.new(quiz_params)

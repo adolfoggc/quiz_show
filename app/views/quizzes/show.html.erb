@@ -46,31 +46,7 @@
 	var i = 0;
 	var answ = "";
 
-	//captura alteração nos radio buttons
-	/*
-	$(function(){
-		console.log("nas áreas!");
-	  	$('input[type="radio"]').click(function(){
-		    if ($(this).is(':checked')){
-		    	var name = $(this).attr("name");
-		    	name = name.substring(0, name.indexOf("["));
-		    	position = 0
-		    	user_answers[name] = $(this).val();
-		      	//alert( name + " " + user_answers[name]);
-		    	var i = 0;
-		    	var answ = "";
-		    	for ( ; i<= <%=@count%> ;i+=1){
-		    		answ = answ+user_answers[i];
-		    		if (i+1 <= <%=@count%> ){
-		    			answ = answ+", ";
-		    		} 
-		    	}
-		    	alert( answ);
-		    }
-		});
-		console.log("cabou, carai");
-	});
-	*/
+	
 	function update_answers(question_no, value){
 		user_answers[question_no] = $(value).val();
 		i = 0;
@@ -81,7 +57,6 @@
 				answ = answ+"&<==>&";
 		  		} 
 		   	}
-		//alert( answ);
 		$("#user_choices").attr("value", answ);
 	}
 
